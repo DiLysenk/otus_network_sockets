@@ -1,6 +1,6 @@
 import random
 
-LOCALHOST = "172.18.0.1"
+LOCALHOST = "127.0.0.1"
 
 
 def random_port():

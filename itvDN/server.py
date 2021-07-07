@@ -3,23 +3,27 @@ import random
 
 HOST = "127.0.0.1"
 PORT = random.randint(10000, 20000)
+addres_port = (HOST, PORT)
+with socket.socket() as s:
+    s.bind(addres_port)  # биндим порт
 
-with socket.socket() as socket:
-    socket.bind((HOST, PORT))
-    print(f'open adress {HOST} and port {PORT}')
-    socket.listen(10)
-    connect, addr = socket.accept()
+    print(f'open adress and port -- curl {HOST}:{PORT}')  # сообщение о адресе и порте
 
-    data = str(connect.recv(1024))
+    s.listen()  # слушаем порт и адрес
+    connect, address = s.accept()  # создание сокета для подключения
 
+    data = connect.recv(4096)
 
-    print("massage----(", data, ")------", connect, addr)
-
-    if "GET" in data:
-        print({"Request Method": "GET"})
+    request_method = data.decode('utf-8').split()[0]
+    headers = data.decode('utf-8').split('\r\n')[8:]
 
 
-    data
+    response_status = 200
+
+    massage = f"HTTP/1.1 200 OK\n Content-Length: 100\n Connection: close\n Content-Type: text/html\n\n <h1>Request Method: {request_method} " \
+              f"Request Source: {addres_port} Response Status: {response_status} OK {headers}</h1>".encode("utf-8")
+
+    connect.send(massage)
 
 
 
