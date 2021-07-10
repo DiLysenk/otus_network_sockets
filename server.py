@@ -2,8 +2,6 @@ import socket
 import random
 from http import HTTPStatus
 
-
-
 HOST = "127.0.0.1"
 PORT = random.randint(10000, 20000)
 addres_port = (HOST, PORT)
@@ -34,10 +32,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         status_phrase = HTTPStatus.OK.phrase
 
     massage = f"HTTP/1.1 200 OK\n Content-Length: 100\n Connection: close\n Content-Type: text/html\n\n <h1>Request Method: {request_method} " \
-              f"Request Source: {addres_port} Response Status: {status_valuse} {status_phrase} {headers_pretty}</h1>".encode("utf-8")
+              f"Request Source: {addres_port} Response Status: {status_valuse} {status_phrase} {headers_pretty}</h1>".encode(
+        "utf-8")
 
     connect.send(massage)
-
-
-
-
