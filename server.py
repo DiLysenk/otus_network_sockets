@@ -2,7 +2,6 @@ import socket
 import random
 from http import HTTPStatus
 
-
 def parse_http_response(text_response):
     lines = text_response.split('\n')
     status_raw, lines = lines[0], lines[1:]
@@ -20,7 +19,6 @@ def parse_http_response(text_response):
         headers.setdefault(k.strip(), v.strip())
     content = ''.join(lines[empty_index + 1])
     return int(status_code), headers, content
-
 
 HOST = "127.0.0.1"
 PORT = random.randint(10000, 20000)
@@ -58,7 +56,3 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
               f"Content {content}</h1>".encode("utf-8")
 
     connect.send(massage)
-
-
-
-
